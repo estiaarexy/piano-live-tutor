@@ -37,3 +37,10 @@ pip install streamlit sounddevice numpy
 
 # Run the application locally
 streamlit run app.py
+
+🔮 Future Roadmap & Scalability Goals
+
+* **Machine Learning Integration:** Transitioning from raw FFT thresholding to lightweight Convolutional Neural Networks (CNNs) inspired by architectures like MobileNet for robust polyphonic chord recognition.
+* **MIDI Protocol Support:** Implementing CoreMIDI / RtMidi bindings to log direct hardware input alongside acoustic microphone data for advanced performance analytics.
+* **Latency Optimization:** Exploring Cython and CUDA kernel acceleration for lower-latency stream processing in high-performance computing environments.
+* **WebAssembly Portability:** Compiling core DSP modules to WebAssembly for browser-native client execution without local Python dependencies.
