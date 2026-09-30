@@ -1,12 +1,30 @@
+# 🎹 Piano Live Tutor
+
 [![Python 3.10+](https://img.shields.io/badge/python-3.10%2B-blue.svg)](https://www.python.org/)
 [![Streamlit](https://img.shields.io/badge/streamlit-1.32%2B-red.svg)](https://streamlit.io/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-A high-performance, real-time audio processing and pitch-detection application engineered to analyze live acoustic piano performance. Built with **Streamlit**, **NumPy**, and **sounddevice**, this tool maps raw microphone input to musical pitch classes and octaves with low latency, providing immediate visual feedback for aspiring musicians.
-cat << 'EOF' > README.md
-# 🎹 Piano Live Tutor
 
+A high-performance, real-time audio processing and pitch-detection application engineered to analyze live acoustic piano performance. Built with **Streamlit**, **NumPy**, and **sounddevice**, this tool maps raw microphone input to musical pitch classes and octaves with low latency, providing immediate visual feedback for aspiring musicians.
 
 ---
+
+## 🛠️ System Architecture & Tech Stack
+
+[ Acoustic Piano ]
+│ (Live Audio Waveform)
+▼
+[ sounddevice ] ──> Ring Buffer & Stream Management
+│
+▼
+[ NumPy FFT ]  ──> Hann Windowing + Fast Fourier Transform
+│
+▼
+[ Frequency ]   ──> Quadratic Interpolation & Octave Mapping
+│
+▼
+[ Streamlit ]   ──> Real-Time UI & Visual Feedback
+
+
 * **Frontend & Dashboard:** `Streamlit` for reactive, stateful browser rendering and UI control loops.
 * **Audio Capture:** `sounddevice` configured with non-blocking callback streams to handle continuous PCM audio frames safely without dropping buffers.
 * **DSP & Pitch Extraction:** `NumPy` executing Fast Fourier Transforms (FFT), window functions to mitigate spectral leakage, and peak detection algorithms to isolate fundamental frequencies ($f_0$).
@@ -37,12 +55,11 @@ pip install streamlit sounddevice numpy
 
 # Run the application locally
 streamlit run app.py
+🔮 Future Roadmap & Scalability Goals
+Machine Learning Integration: Transitioning from raw FFT thresholding to lightweight Convolutional Neural Networks (CNNs) inspired by architectures like MobileNet for robust polyphonic chord recognition.
 
----
+MIDI Protocol Support: Implementing CoreMIDI / RtMidi bindings to log direct hardware input alongside acoustic microphone data for advanced performance analytics.
 
-## 🔮 Future Roadmap & Scalability Goals
+Latency Optimization: Exploring Cython and CUDA kernel acceleration for lower-latency stream processing in high-performance computing environments.
 
-* **Machine Learning Integration:** Transitioning from raw FFT thresholding to lightweight Convolutional Neural Networks (CNNs) inspired by architectures like MobileNet for robust polyphonic chord recognition.
-* **MIDI Protocol Support:** Implementing CoreMIDI / RtMidi bindings to log direct hardware input alongside acoustic microphone data for advanced performance analytics.
-* **Latency Optimization:** Exploring Cython and CUDA kernel acceleration for lower-latency stream processing in high-performance computing environments.
-* **WebAssembly Portability:** Compiling core DSP modules to WebAssembly for browser-native client execution without local Python dependencies.
+WebAssembly Portability: Compiling core DSP modules to WebAssembly for browser-native client execution without local Python dependencies.
