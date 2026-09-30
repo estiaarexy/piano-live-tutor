@@ -38,6 +38,8 @@ pip install streamlit sounddevice numpy
 # Run the application locally
 streamlit run app.py
 
+---
+
 ## 🔮 Future Roadmap & Scalability Goals
 
 * **Machine Learning Integration:** Transitioning from raw FFT thresholding to lightweight Convolutional Neural Networks (CNNs) inspired by architectures like MobileNet for robust polyphonic chord recognition.
