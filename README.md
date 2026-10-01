@@ -40,20 +40,6 @@ A high-performance, real-time audio processing and pitch-detection application e
    $$n = 12 \times \log_2\left(\frac{f}{440}\right) + 69$$
 
 ---
-## 🔮 Future Roadmap & Scalability Goals
-
-Machine Learning Integration: Transitioning from raw FFT thresholding to lightweight Convolutional Neural Networks (CNNs) inspired by architectures like MobileNet for robust polyphonic chord recognition.
-
-MIDI Protocol Support: Implementing CoreMIDI / RtMidi bindings to log direct hardware input alongside acoustic microphone data for advanced performance analytics.
-
-Latency Optimization: Exploring Cython and CUDA kernel acceleration for lower-latency stream processing in high-performance computing environments.
-
-WebAssembly Portability: Compiling core DSP modules to WebAssembly for browser-native client execution without local Python dependencies.
-```markdown
-- **Client-Side Audio Integration (WebRTC / Web Audio API):** 
-  Migrate audio capture from server-side `sounddevice` to browser-based WebRTC or JavaScript audio streams. This will allow users to use their microphone directly from any web browser without requiring local machine dependencies or CLI setup.
-
-
 ## 🚀 Quickstart & Local Installation
 ## 🚀 Live Demo & Access
 
@@ -74,5 +60,18 @@ pip install streamlit sounddevice numpy
 # Run the application locally
 streamlit run app.py
 
----
+
+## 🔮 Future Roadmap & Scalability Goals
+
+Machine Learning Integration: Transitioning from raw FFT thresholding to lightweight Convolutional Neural Networks (CNNs) inspired by architectures like MobileNet for robust polyphonic chord recognition.
+
+MIDI Protocol Support: Implementing CoreMIDI / RtMidi bindings to log direct hardware input alongside acoustic microphone data for advanced performance analytics.
+
+Latency Optimization: Exploring Cython and CUDA kernel acceleration for lower-latency stream processing in high-performance computing environments.
+
+WebAssembly Portability: Compiling core DSP modules to WebAssembly for browser-native client execution without local Python dependencies.
+```markdown
+- **Client-Side Audio Integration (WebRTC / Web Audio API):** 
+  Migrate audio capture from server-side `sounddevice` to browser-based WebRTC or JavaScript audio streams. This will allow users to use their microphone directly from any web browser without requiring local machine dependencies or CLI setup.
+
 
