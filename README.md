@@ -49,16 +49,24 @@ MIDI Protocol Support: Implementing CoreMIDI / RtMidi bindings to log direct har
 Latency Optimization: Exploring Cython and CUDA kernel acceleration for lower-latency stream processing in high-performance computing environments.
 
 WebAssembly Portability: Compiling core DSP modules to WebAssembly for browser-native client execution without local Python dependencies.
+```markdown
+- **Client-Side Audio Integration (WebRTC / Web Audio API):** 
+  Migrate audio capture from server-side `sounddevice` to browser-based WebRTC or JavaScript audio streams. This will allow users to use their microphone directly from any web browser without requiring local machine dependencies or CLI setup.
 
 
 ## 🚀 Quickstart & Local Installation
+## 🚀 Live Demo & Access
 
-Clone the repository and install dependencies locally:
+[![Live Demo](https://img.shields.io/badge/stream-live%20demo-success.svg)](https://piano-live-tutor-awqf7tpnuyn6shvrcdv3lf.streamlit.app)
 
-```bash
-# Clone the repository
-git clone [https://github.com/estiaarexy/piano-live-tutor.git](https://github.com/estiaarexy/piano-live-tutor.git)
-cd piano-live-tutor
+> **⚠️ Note on Live Microphone Access:** 
+> Because Streamlit Cloud runs on a remote headless server, real-time microphone recording via `sounddevice` requires local execution. To test the live audio processing feature with your microphone, run the app locally using the steps below!
+
+### 💻 Running Locally
+1. **Clone the repository:**
+   ```bash
+   git clone [https://github.com/estiaarexy/piano-live-tutor.git](https://github.com/estiaarexy/piano-live-tutor.git)
+   cd piano-live-tutor
 
 # Install required audio and UI dependencies
 pip install streamlit sounddevice numpy
