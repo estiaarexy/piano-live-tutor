@@ -1,77 +1,39 @@
-# 🎹 Piano Live Tutor
+# Piano Live Tutor
 
-[![Python 3.10+](https://img.shields.io/badge/python-3.10%2B-blue.svg)](https://www.python.org/)
-[![Streamlit](https://img.shields.io/badge/streamlit-1.32%2B-red.svg)](https://streamlit.io/)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+A practice tool that listens to your piano through the microphone and checks
+whether you play the right notes, from a single note up to the opening of
+Für Elise.
 
-A high-performance, real-time audio processing and pitch-detection application engineered to analyze live acoustic piano performance. Built with **Streamlit**, **NumPy**, and **sounddevice**, this tool maps raw microphone input to musical pitch classes and octaves with low latency, providing immediate visual feedback for aspiring musicians.
+## How it works
+1. Records a short audio window for each note (2.0 s; 1.1 s for Für Elise)
+2. Takes the FFT of the recording and finds the strongest frequency
+3. Matches that frequency to the nearest note in a piano frequency table (A3-A5)
+4. Compares it with the target note in the practice sequence
 
----
+## Features
+- 9 levels, from a single note (C4) to the opening of Für Elise
+- Level selector with step-by-step feedback
+- Restart and home controls
 
-## 🛠️ System Architecture & Tech Stack
+## Run locally
+    git clone https://github.com/estiaarexy/piano-live-tutor
+    cd piano-live-tutor
+    pip install -r requirements.txt
+    streamlit run app.py
 
-[ Acoustic Piano ]
-│ (Live Audio Waveform)
-▼
-[ sounddevice ] ──> Ring Buffer & Stream Management
-│
-▼
-[ NumPy FFT ]  ──> Hann Windowing + Fast Fourier Transform
-│
-▼
-[ Frequency ]   ──> Quadratic Interpolation & Octave Mapping
-│
-▼
-[ Streamlit ]   ──> Real-Time UI & Visual Feedback
+A working microphone is required. Allow microphone access when prompted.
 
+## Current limitations
+- Needs a local microphone, so the hosted demo cannot listen to visitors
+- Fixed-length recordings, not continuous detection
+- Single notes only; no chords
+- No silence or noise handling yet
+- Accuracy not yet measured across all notes
 
-* **Frontend & Dashboard:** `Streamlit` for reactive, stateful browser rendering and UI control loops.
-* **Audio Capture:** `sounddevice` configured with non-blocking callback streams to handle continuous PCM audio frames safely without dropping buffers.
-* **DSP & Pitch Extraction:** `NumPy` executing Fast Fourier Transforms (FFT), window functions to mitigate spectral leakage, and peak detection algorithms to isolate fundamental frequencies ($f_0$).
-
----
-
-## ⚙️ Core Algorithmic Workflow
-
-1. **Buffer Acquisition:** Audio is streamed in real-time blocks (PCM chunks) from the system's default input device at a controlled sample rate ($44.1\,\text{kHz}$).
-2. **Spectral Windowing:** A Hann window is applied to each audio frame to reduce spectral leakage and boundary discontinuities before transformation.
-3. **Frequency Bin Mapping:** The discrete frequency spectrum is computed using vectorized NumPy FFT operations, mapping energy spikes to standard musical scale semitones ($A_4 = 440\,\text{Hz}$).
-4. **Note & Octave Resolution:** Frequencies are translated into scientific pitch notation via logarithmic frequency scaling:
-   $$n = 12 \times \log_2\left(\frac{f}{440}\right) + 69$$
-
----
-## 🚀 Quickstart & Local Installation
-## 🚀 Live Demo & Access
-
-[![Live Demo](https://img.shields.io/badge/stream-live%20demo-success.svg)](https://piano-live-tutor-awqf7tpnuyn6shvrcdv3lf.streamlit.app)
-
-> **⚠️ Note on Live Microphone Access:** 
-> Because Streamlit Cloud runs on a remote headless server, real-time microphone recording via `sounddevice` requires local execution. To test the live audio processing feature with your microphone, run the app locally using the steps below!
-
-### 💻 Running Locally
-1. **Clone the repository:**
-   ```bash
-   git clone [https://github.com/estiaarexy/piano-live-tutor.git](https://github.com/estiaarexy/piano-live-tutor.git)
-   cd piano-live-tutor
-
-# Install required audio and UI dependencies
-pip install streamlit sounddevice numpy
-
-# Run the application locally
-streamlit run app.py
-
-
-## 🔮 Future Roadmap & Scalability Goals
-
-Machine Learning Integration: Transitioning from raw FFT thresholding to lightweight Convolutional Neural Networks (CNNs) inspired by architectures like MobileNet for robust polyphonic chord recognition.
-
-MIDI Protocol Support: Implementing CoreMIDI / RtMidi bindings to log direct hardware input alongside acoustic microphone data for advanced performance analytics.
-
-Latency Optimization: Exploring Cython and CUDA kernel acceleration for lower-latency stream processing in high-performance computing environments.
-
-WebAssembly Portability: Compiling core DSP modules to WebAssembly for browser-native client execution without local Python dependencies.
-```markdown
-- **Client-Side Audio Integration (WebRTC / Web Audio API):** 
-  Migrate audio capture from server-side `sounddevice` to browser-based WebRTC or JavaScript audio streams. This will allow users to use their microphone directly from any web browser without requiring local machine dependencies or CLI setup.
-
+## Planned
+- Silence detection and a rewritten pitch detector
+- Accuracy results per note
+- Browser microphone support
+- Practice history and scoring
+  
 
